@@ -25,7 +25,9 @@
 */
 const int pResistor = A5; // Photoresistor at Arduino analog pin A5
 const int ledPin=9;       // Led pin at Arduino pin 9 {eventualno tuk 6te e lampata}
-
+int pompaPin = 2; 
+int inPin = 3;   
+int val = 0;    
 
 void setup()
 {
@@ -33,6 +35,8 @@ void setup()
   pinMode (A0, INPUT);
   pinMode(ledPin, OUTPUT);  // Set ledPin - 9 pin as an output
   pinMode(pResistor, INPUT);// Set pResistor - A0 pin as an input (optional)
+  pinMode(pompaPin, OUTPUT);  
+  pinMode(inPin, INPUT);    
 }
 
 int tmp;
@@ -56,11 +60,13 @@ void loop()
   Serial.println (tmp);
   r = ((1023.0*R0)/(float)tmp)-R0;
   temperature = B/log(r/0.09919) - 273.15;	// log is ln in this case
-  
+  temperature += 10;
   Serial.print ("T = ");
   Serial.print (temperature);
   Serial.println (", C");
   delay (500);
+
+  //svetlina
   value = analogRead(pResistor);
   
   //You can change value "25"
@@ -72,4 +78,12 @@ void loop()
   }
   Serial.println ("\npResistor value:");
   Serial.println (value);
+
+  //nivo
+   val = digitalRead(inPin);  
+  if (val == HIGH) {         
+    digitalWrite(pompaPin, LOW);  
+  } else {
+    digitalWrite(pompaPin, HIGH);  
+  }
 }
