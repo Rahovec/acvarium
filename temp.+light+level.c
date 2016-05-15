@@ -55,6 +55,7 @@ int value;          // Store value from photoresistor (0-1023)
 
 void loop()
 {
+  //temperatura
   tmp = analogRead (A0);
   Serial.print ("A0 = ");
   Serial.println (tmp);
@@ -64,12 +65,12 @@ void loop()
   Serial.print ("T = ");
   Serial.print (temperature);
   Serial.println (", C");
-  delay (500);
+ // delay (500);
 
   //svetlina
   value = analogRead(pResistor);
   
-  //You can change value "25"
+  
   if (value > 400){
     digitalWrite(ledPin, LOW);  //Turn led off
   }
